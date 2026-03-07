@@ -1,0 +1,14 @@
+{
+  "files.associations": {
+    "**/templates/**/*.html": "jinja-html",
+    "templates/*.html": "jinja-html",
+    "*.j2": "jinja-html",
+    "*.jinja": "jinja-html"
+  },
+  "emmet.includeLanguages": {
+    "jinja-html": "html"
+  },
+  "[jinja-html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  }
+}

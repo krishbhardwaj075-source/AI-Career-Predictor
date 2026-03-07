@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Career Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/style.css') }}">
+</head>
+<body>
+    <div class="cantainer">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <h2>AI Career</h2>
+            <ul>
+              <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#upload">Upload Resume</a></li>
+            <li><a href="#prediction">Career Prediction</a></li>
+            <li><a href="#skills">Skill Analysis</a></li>
+            <li><a href="#jobs">Job Recommendation</a></li>
+            <li><a href="#github">Github Analysis</a></li>
+            <li><a href="/chatbot"> Chatbot</a></li>
+            </ul>
+        </div>
+        <!-- Main -->
+        <div class="main" id="dashboard">
+            <h1>AI Career Predictor</h1>
+            <!-- Cards -->
+            <div class="cards" id="prediction">
+                <div class="card">
+                    <h3>Resume Score</h3>
+                    <p>{{ score if score else"--/100" }}</p>
+                </div>
+                <div class="card">
+                    <h3>Career Prediction</h3>
+                    <p>{{prediction if prediction else "Not analyzed"}}</p>
+                </div>
+                 <div class="card">
+                    <h3>Skill tracker</h3>
+                    {% if skills %}
+                    <p>{{ skill_count if skill_count else "0" }} Skills detected</p>
+                    <div class="progress">
+                        <div class="progress-bar" style="width:{{ skill_percent }}%"></div>
+                    </div>
+                    {% else %}
+                    <p>No data available!</p>
+                    {% endif %}
+                </div>
+            </div>
+            <!-- Uploading Area -->
+          <div class="upload-box" id="upload">
+            {% with messages=get_flashed_messages() %}
+            {% if messages %}
+            <div class="success-msg">
+                {{ messages[0] }}
+            </div>
+            {% endif %}
+            {% endwith %}
+            <h2>Upload Resume</h2>
+            <form action="/upload" method="post" enctype="multipart/form-data">
+                <label for="resume">Choose resume file</label><br><br>
+                <input type="file" name="resume" id="resume" title="Upload your resume" accept=".pdf, .docx" required>
+                <br> <br>
+                <button type="submit">Analyze Resume</button>
+            </form>
+          </div>
+            <div class="upload-box">
+                <h2>Analyze github</h2>
+                <form action="/github" method="post">
+                    <input type="text" name="github" placeholder="Enter Github username" required>
+                    <button type="submit">Analyze</button>
+                </form>
+            </div>
+         
+          <div  class="analysis" id="skills">
+            <h2>Skill Progress</h2>
+   {% if skills %}
+<div class="skill-tags">
+{% for skill in skills %}
+<span class="skill-tag">{{ skill }}</span>
+{% endfor %}
+</div>
+{% else %}
+<p>No skills detected</p>
+{% endif %}
+            </div>
+          <!-- Missing skills -->
+           <div class="analysis-sec" id="jobs">
+            <h2>Missing Skills</h2>
+            {% if missing %}
+            <ul>{% for skill in missing %}
+            <li>{{ skill }}</li>
+            {% endfor %}</ul>
+            {% else %}
+            <p>No missing skills</p>
+            {% endif %}
+           </div>
+           <div class="analysis-sec" id="github">
+            <h2>GitHub Skills</h2>
+        {% if github_skills %}
+        <ul>{% for skill in github_skills %}
+            <li>{{ skill }}</li>
+            {% endfor %}</ul>
+        {% else %}
+        <p>No GitHub data</p>
+        {% endif %}
+
+           </div>
+        </div>
+        <div class="right-panel">
+        <!-- career Roadmap -->
+         <div class="analysis-sec">
+            <h2>
+                Career Roadmap
+            </h2>
+         {% if roadmap %}
+        <ol>{% for step in roadmap %}
+        <li>{{ step }}</li>
+        {% endfor %}</ol>
+        {% else %}
+        <p>No roadmap available</p>
+        {% endif %}
+         </div>
+         <!-- job recomendations -->
+          <div class="analysis-sec">
+            <h2>Job Recommendations</h2>
+ {% if jobs %}
+<ul>
+{% for job in jobs %}
+<li>{{ job }}</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>No recommendations</p>
+{% endif %}
+        </div>
+    </div>
+    </div>
+</body>
+</html>
