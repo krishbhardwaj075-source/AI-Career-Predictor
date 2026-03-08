@@ -9,6 +9,7 @@ from utils.job_recomendation import recommend
 from utils.github_analysis import git_analyze
 from utils.career_predictor import roadmap
 from utils.supabase_client import supabase
+from utils.skill_prog import progress
 import retrain
 from utils.chat import reply
 import joblib
@@ -36,6 +37,7 @@ def uploads():
         score=resume_score(cleaned_txt)
         skill=extract(cleaned_txt)
         skill_count=len(skill)
+        prog, matched=progress(prediction[0],skill)
         skill_percent=min((skill_count/25)*100,100)
         missing_skills=gap(prediction[0], skill)
         jobs=recommend(prediction[0])
@@ -48,7 +50,7 @@ def uploads():
            "missing_skills":",".join(missing_skills),
            "jobs":",".join(jobs)
            }).execute()
-        flash("Your resume saved successfullu!")
+        flash("Your resume saved successfully!")
         data=supabase.table("resumes").select("*").execute()
         if len(data.data)%30==0:
            import retrain
@@ -76,5 +78,5 @@ def chatbot():
    return render_template("chatbot.html",user_msg=user_msg,bot_msg=bot_msg)
    
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(debug=True)
+    

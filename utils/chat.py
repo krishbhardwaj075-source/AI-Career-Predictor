@@ -46,30 +46,22 @@ Roadmap for AI/Data Science:
 6. Learn Deep Learning
 7. Build portfolio
 """
-
     # projects
     if "project" in msg:
         return "Good projects include Resume Analyzer, Chatbots, Recommendation Systems, ML models and Web Applications."
-
     # internships
     if "internship" in msg:
         return "You can find internships on LinkedIn, Internshala, Indeed and company career pages."
-
     # resume
     if "resume" in msg:
         return "A strong resume should include skills, projects, education, internships and achievements."
-
-    # interview
     if "interview" in msg:
         return "Prepare Data Structures, problem solving, ML concepts and explain your projects clearly."
-
     # jobs
     if "job" in msg or "career" in msg:
         return "Popular tech careers include Data Scientist, AI Engineer, Software Engineer, Web Developer and Data Analyst."
-
     # salary
     if "salary" in msg:
         return "AI, Machine Learning and Data Science roles generally have high salary potential."
 
-    # fallback
     return "I can help with careers, skills, projects, internships and learning paths. Tell me your skills or ask about a career."
