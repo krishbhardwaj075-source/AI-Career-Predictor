@@ -78,5 +78,5 @@ def chatbot():
    return render_template("chatbot.html",user_msg=user_msg,bot_msg=bot_msg)
    
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0",port=8080)
     
