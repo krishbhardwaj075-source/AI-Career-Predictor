@@ -10,7 +10,6 @@ from utils.github_analysis import git_analyze
 from utils.career_predictor import roadmap
 from utils.supabase_client import supabase
 from utils.skill_prog import progress
-import retrain
 from utils.chat import reply
 import joblib
 app=Flask(__name__)
@@ -55,8 +54,8 @@ def uploads():
         if len(data.data)%30==0:
            import retrain
         return render_template("index.html", prediction=prediction[0],
-                               score=score,skills=skill ,skill_count=skill_count,skill_percent=skill_percent,missing=missing_skills
-                               ,jobs=jobs,roadmap=road)
+                            score=score,skills=skill ,skill_count=skill_count,skill_percent=skill_percent,missing=missing_skills
+                            ,jobs=jobs,roadmap=road)
     return "Upload failed!"
 @app.route("/github", methods=["POST"])
 def github():
